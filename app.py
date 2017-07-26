@@ -191,7 +191,9 @@ def thankyou():
 def document(reviewer):
     the_document = Manager.query.filter(Manager.reviewer == reviewer).order_by("id desc").first()
 
-    return render_template('document.html', the_document=the_document)
+    BASE_DIR = os.path.dirname(__file__)
+
+    return render_template('document.html', the_document=the_document, base_dir=BASE_DIR)
 
 
 
