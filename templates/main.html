@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Job Description</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+    <script src="/static/signature.js"></script>
+
+
+
+    <style>
+        body{
+            line-height: 1.5em;
+            width: 96%;
+            margin: 0 auto;
+        }
+        .signature_area table{
+            height:120px;
+        }
+        p{
+            text-align:justify;
+        }
+        .footer_button{
+            margin: 20px;
+            padding: 10px;
+            border-top: 1px solid;
+        }
+    </style>
+
+</head>
+<body onload="getLocation()">
+<form method="post" action="/manager" id="frm">
+    <input type="hidden" id="location" name="location">
+    <input type="hidden" id="signature" name="signature">
+
+<h1>PROBATION EVALUATION FORM</h1>
+
+    <h2>Employee Information</h2>
+
+<div class="employee">
+    <table cellspacing="3" cellpadding="3">
+        <thead>
+        <tr>
+         <td>
+        Employee Information
+            </td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+           <td>Employee Name :</td>
+            <td><input type="text" name = "emp_name" id="emp_name"></td>
+            <td>Date : </td>
+            <td><input type="date" name="date" id="date"></td>
+        </tr>
+
+        <tr>
+            <td>Department:</td>
+            <td><input type="text" name="department"></td>
+            <td>Period of Review :</td>
+            <td><input type="text" name="period_of_review"></td>
+        </tr>
+        <tr>
+            <td>Reviewer:</td>
+            <td><input type="text" name="reviewer"></td>
+            <td>Reviewers Title:</td>
+            <td><input type="text" name="reviewers_title"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    <table cellpadding="3" cellspacing="3">
+        <thead>
+        <tr>
+            <td>Performance Evaluation </td>
+            <td>Excellent </td>
+            <td>Good</td>
+            <td>Fair </td>
+            <td>Poor </td>
+            <td>Comments</td>
+        </tr>
+        </thead>
+        <tbody>
+    <tr>
+        <td>Job Knowledge</td>
+        <td><input type="radio" name="job_Knowledge" value="Excellent" ><br></td>
+        <td><input type="radio" name="job_Knowledge" value="Good"><br></td>
+        <td><input type="radio" name="job_Knowledge" value="Fair"></td>
+        <td><input type="radio" name="job_Knowledge" value="Poor"></td>
+        <td><input type="text" name="job_Knowledge_comments" id="job_Knowledge_comments"></td>
+
+
+    </tr>
+    <tr>
+        <td>Productivity</td>
+        <td><input type="radio" name="productivity" value="Excellent" ><br></td>
+        <td><input type="radio" name="productivity" value="Good"><br></td>
+        <td><input type="radio" name="productivity" value="Fair"></td>
+        <td><input type="radio" name="productivity" value="Poor"></td>
+        <td><input type="text" name="productivity_comments" id="productivity_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Work Quality</td>
+        <td><input type="radio" name="work_quality" value="Excellent" ><br></td>
+        <td><input type="radio" name="work_quality" value="Good"><br></td>
+        <td><input type="radio" name="work_quality" value="Fair"></td>
+        <td><input type="radio" name="work_quality" value="Poor"></td>
+        <td><input type="text" name="work_quality_comments" id="work_quality_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Technical Skills</td>
+        <td><input type="radio" name="technical_skills" value="Excellent" ><br></td>
+        <td><input type="radio" name="technical_skills" value="Good"><br></td>
+        <td><input type="radio" name="technical_skills" value="Fair"></td>
+        <td><input type="radio" name="technical_skills" value="Poor"></td>
+        <td><input type="text" name="technical_skills_comments" id="technical_skills_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Work Consistency</td>
+        <td><input type="radio" name="work_consistency" value="Excellent" ><br></td>
+        <td><input type="radio" name="work_consistency" value="Good"><br></td>
+        <td><input type="radio" name="work_consistency" value="Fair"></td>
+        <td><input type="radio" name="work_consistency" value="Poor"></td>
+        <td><input type="text" name="work_consistency_comments" id="work_consistency_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Enthusiasm</td>
+        <td><input type="radio" name="enthusiasm" value="Excellent" ><br></td>
+        <td><input type="radio" name="enthusiasm" value="Good"><br></td>
+        <td><input type="radio" name="enthusiasm" value="Fair"></td>
+        <td><input type="radio" name="enthusiasm" value="Poor"></td>
+        <td><input type="text" name="enthusiasm_comments" id="enthusiasm_comments"></td>
+    </tr>
+
+     <tr>
+        <td>Cooperation</td>
+        <td><input type="radio" name="cooperation" value="Excellent" ><br></td>
+        <td><input type="radio" name="cooperation" value="Good"><br></td>
+        <td><input type="radio" name="cooperation" value="Fair"></td>
+        <td><input type="radio" name="cooperation" value="Poor"></td>
+        <td><input type="text" name="cooperation_comments" id="cooperation_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Attitude/ Behavior</td>
+        <td><input type="radio" name="attitude" value="Excellent" ><br></td>
+        <td><input type="radio" name="attitude" value="Good"><br></td>
+        <td><input type="radio" name="attitude" value="Fair"></td>
+        <td><input type="radio" name="attitude" value="Poor"></td>
+        <td><input type="text" name="attitude_comments" id="attitude_comments"></td>
+    </tr>
+
+     <tr>
+        <td>Initiative</td>
+        <td><input type="radio" name="initiative" value="Excellent" ><br></td>
+        <td><input type="radio" name="initiative" value="Good"><br></td>
+        <td><input type="radio" name="initiative" value="Fair"></td>
+        <td><input type="radio" name="initiative" value="Poor"></td>
+        <td><input type="text" name="initiative_comments" id="initiative_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Work Relations</td>
+        <td><input type="radio" name="work_relations" value="Excellent" ><br></td>
+        <td><input type="radio" name="work_relations" value="Good"><br></td>
+        <td><input type="radio" name="work_relations" value="Fair"></td>
+        <td><input type="radio" name="work_relations" value="Poor"></td>
+        <td><input type="text" name="work_relations_comments" id="work_relations_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Creativity</td>
+        <td><input type="radio" name="creativity" value="Excellent" ><br></td>
+        <td><input type="radio" name="creativity" value="Good"><br></td>
+        <td><input type="radio" name="creativity" value="Fair"></td>
+        <td><input type="radio" name="creativity" value="Poor"></td>
+        <td><input type="text" name="creativity_comments" id="creativity_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Punctuality</td>
+        <td><input type="radio" name="punctuality" value="Excellent" ><br></td>
+        <td><input type="radio" name="punctuality" value="Good"><br></td>
+        <td><input type="radio" name="punctuality" value="Fair"></td>
+        <td><input type="radio" name="punctuality" value="Poor"></td>
+        <td><input type="text" name="punctuality_comments" id="punctuality_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Attendance</td>
+        <td><input type="radio" name="attendance" value="Excellent" ><br></td>
+        <td><input type="radio" name="attendance" value="Good"><br></td>
+        <td><input type="radio" name="attendance" value="Fair"></td>
+        <td><input type="radio" name="attendance" value="Poor"></td>
+        <td><input type="text" name="attendance_comments" id="attendance_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Dependability</td>
+        <td><input type="radio" name="dependability" value="Excellent" ><br></td>
+        <td><input type="radio" name="dependability" value="Good"><br></td>
+        <td><input type="radio" name="dependability" value="Fair"></td>
+        <td><input type="radio" name="dependability" value="Poor"></td>
+        <td><input type="text" name="dependability_comments" id="dependability_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Communication Skills</td>
+        <td><input type="radio" name="communication_skills" value="Excellent" ><br></td>
+        <td><input type="radio" name="communication_skills" value="Good"><br></td>
+        <td><input type="radio" name="communication_skills" value="Fair"></td>
+        <td><input type="radio" name="communication_skills" value="Poor"></td>
+        <td><input type="text" name="communication_skills_comments" id="communication_skills_comments"></td>
+    </tr>
+
+    <tr>
+        <td>Overall Rating</td>
+        <td><input type="radio" name="overall_rating" value="Excellent" ><br></td>
+        <td><input type="radio" name="overall_rating" value="Good"><br></td>
+        <td><input type="radio" name="overall_rating" value="Fair"></td>
+        <td><input type="radio" name="overall_rating" value="Poor"></td>
+        <td><input type="text" name="overall_rating_comments" id="overall_rating_comments"></td>
+    </tr>
+        </tbody>
+</table>
+
+    <h1>Opportunities for Development</h1>
+    <textarea rows="4" cols="50" name="opportunities" id="opportunities">
+
+
+    </textarea>
+
+
+    <h1>Reviewers Comments</h1>
+    <textarea rows="4" cols="50" name="reviewers_comments" id="reviewers_comments">
+
+
+    </textarea>
+    <br>
+
+
+
+
+
+
+<small>By signing this form, you confirm that you have discussed this review in detail with your supervisor.
+    Signing this form does not necessarily indicate that you agree with this performance evaluation.
+
+</small>
+
+
+
+<div class="signature_area">
+    <table cellspacing="3" cellpadding="3">
+        <tr>
+            <td>Employee Signature  :</td>
+            <td>Date</td>
+
+
+        </tr>
+
+         <tr>
+            <td>Reviewer Signature  :</td>
+            <td style="background:#faebd7;">
+                <div id="canvas">
+                    Canvas is not supported.
+                </div>
+                <script>
+				zkSignature.capture();
+
+                </script>
+            </td>
+            <td>
+            <button name="button" type="button" onclick="zkSignature.clear()">Clear</button>
+            </td>
+            <td>Date</td>
+            <td><input type="date" id="date1" name="date1"></td>
+
+        </tr>
+    </table>
+</div>
+
+<div class="footer_button">
+    <button type="submit" id="submit">Submit</button>
+</div>
+</form>
+
+
+
+
+
+<script>
+        function showPosition(position) {
+            //x.innerHTML = "Latitude: " + position.coords.latitude +
+            //"<br>Longitude: " + position.coords.longitude;
+
+
+             var xhttp = new XMLHttpRequest();
+             xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                 response = JSON.parse(this.responseText);
+                 document.getElementById('location').value = response.results[0].formatted_address;
+                }
+              };
+              xhttp.open("GET", 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+', '+position.coords.longitude+'+&sensor=true', true);
+              xhttp.send();
+
+
+         }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        function save(){
+            var canvas = document.getElementById("newSignature");
+			var signature = canvas.toDataURL("image/png");
+
+			var date = document.querySelector('[name=date]').value;
+
+			var date1 = document.querySelector('[name=date1]').value;
+
+			var emp_name = document.querySelector('[name=emp_name]').value;
+			var department = document.querySelector('[name=department]').value;
+			var period_of_review = document.querySelector('[name=period_of_review]').value;
+			var reviewer = document.querySelector('[name=reviewer]').value;
+			var reviewers_title = document.querySelector('[name=reviewers_title]').value;
+
+			var job_Knowledge = document.querySelector('[name=job_Knowledge]:checked').value;
+			var productivity = document.querySelector('[name=productivity]:checked').value;
+
+			var work_quality = document.querySelector('[name=work_quality]:checked').value;
+			var technical_skills = document.querySelector('[name=technical_skills]:checked').value;
+			var enthusiasm = document.querySelector('[name=enthusiasm]:checked').value;
+			var cooperation = document.querySelector('[name=cooperation]:checked').value;
+			var attitude = document.querySelector('[name=attitude]:checked').value;
+			var initiative = document.querySelector('[name=initiative]:checked').value;
+			var work_relations = document.querySelector('[name=work_relations]:checked').value;
+			var creativity = document.querySelector('[name=creativity]:checked').value;
+			var punctuality = document.querySelector('[name=punctuality]:checked').value;
+			var attendance = document.querySelector('[name=attendance]:checked').value;
+			var dependability = document.querySelector('[name=dependability]:checked').value;
+			var communication_skills = document.querySelector('[name=communication_skills]:checked').value;
+
+			var overall_rating = document.querySelector('[name=overall_rating]:checked').value;
+
+
+			document.getElementById('signature').value = signature;
+
+			if ( zkSignature.isEmpty()
+			 ){
+			        alert('Please sign all the fields');
+			       return false;
+			};
+
+			if ( (date == '') ||
+			  (date1 == '')
+			 || (emp_name == '') || (department == '') || (period_of_review == '') || (reviewer == '') || (reviewers_title == '')
+			 || (job_Knowledge == '') || (productivity == '') || (work_quality == '') || (technical_skills == '')
+			 || (enthusiasm == '')
+			 || (cooperation == '') || (attitude == '') || (initiative == '') || (work_relations == '') || (creativity == '')
+			 || (punctuality == '') || (attendance == '') || (dependability == '') || (communication_skills == '')){
+			    alert('All fields are mandatory!!');
+			    return false;
+			}
+
+
+			return true;
+
+
+        }
+        function dosubmit(e){
+             if( confirm('By Submitting this form you agree that the information shared by you is correct and up-to-date ? ') ){
+                save();
+             }
+
+             return false;
+        }
+       document.getElementById('frm').addEventListener('submit', dosubmit);
+    </script>
+</body>
+</html>

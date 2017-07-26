@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Job Description</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+    <script src="/static/signature.js"></script>
+
+
+
+    <style>
+        body{
+            line-height: 1.5em;
+            width: 96%;
+            margin: 0 auto;
+        }
+        .signature_area table{
+            height:120px;
+        }
+        p{
+            text-align:justify;
+        }
+        .footer_button{
+            margin: 20px;
+            padding: 10px;
+            border-top: 1px solid;
+        }
+    </style>
+
+</head>
+<body style="line-height: 1.5em; width: 96%; margin: 0 auto;">
+
+
+<h1>PROBATION EVALUATION FORM</h1>
+
+    <h2>Employee Information</h2>
+
+<div class="employee">
+    <table cellspacing="3" cellpadding="3">
+        <thead>
+        <tr>
+         <td>
+        Employee Information
+            </td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+           <td>Employee Name :</td>
+            <td>{{the_document.emp_name}}</td>
+            <td>Date : </td>
+            <td>{{date}}</td>
+        </tr>
+
+        <tr>
+            <td>Department:</td>
+            <td>{{the_document.department}}</td>
+            <td>Period of Review :</td>
+            <td>{{the_document.period_of_review}}</td>
+        </tr>
+        <tr>
+            <td>Reviewer:</td>
+            <td>{{the_document.reviewer}}</td>
+            <td>Reviewers Title:</td>
+            <td>{{the_document.reviewers_title}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    <table cellpadding="3" cellspacing="3">
+        <thead>
+        <tr>
+            <td>Performance Evaluation </td>
+            <td>Excellent </td>
+            <td>Good</td>
+            <td>Fair </td>
+            <td>Poor </td>
+            <td>Comments</td>
+        </tr>
+        </thead>
+        <tbody>
+    <tr>
+        <td>Job Knowledge</td>
+        <td><input type="radio" name="job_Knowledge" value="Excellent"
+                   {% if the_document.job_Knowledge == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="job_Knowledge" value="Good" disabled
+        {% if the_document.job_Knowledge == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="job_Knowledge" value="Fair" disabled
+        {% if the_document.job_Knowledge == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="job_Knowledge" value="Poor" disabled
+        {% if the_document.job_Knowledge == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="job_Knowledge_comments" id="job_Knowledge_comments" readonly value="{{the_document.job_Knowledge_comments}}"></td>
+
+
+    </tr>
+
+    <tr>
+        <td>Productivity</td>
+        <td><input type="radio" name="productivity" value="Excellent"
+                   {% if the_document.productivity == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="productivity" value="Good" disabled
+        {% if the_document.productivity == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="productivity" value="Fair" disabled
+        {% if the_document.productivity == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="productivity" value="Poor" disabled
+        {% if the_document.productivity == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="productivity_comments" id="productivity_comments" readonly value="{{the_document.productivity_comments}}"></td>
+
+
+    </tr>
+
+     <tr>
+        <td>Work Quality</td>
+        <td><input type="radio" name="work_quality" value="Excellent"
+                   {% if the_document.work_quality == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="work_quality" value="Good" disabled
+        {% if the_document.work_quality == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="work_quality" value="Fair" disabled
+        {% if the_document.work_quality == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="work_quality" value="Poor" disabled
+        {% if the_document.work_quality == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="work_quality_comments" id="work_quality_comments" readonly value="{{the_document.work_quality_comments}}"></td>
+
+
+    </tr>
+
+     <tr>
+        <td>Technical Skills</td>
+        <td><input type="radio" name="technical_skills" value="Excellent"
+                   {% if the_document.technical_skills == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="technical_skills" value="Good" disabled
+        {% if the_document.technical_skills == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="technical_skills" value="Fair" disabled
+        {% if the_document.technical_skills == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="technical_skills" value="Poor" disabled
+        {% if the_document.technical_skills == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="technical_skills_comments" id="technical_skills_comments" readonly value="{{the_document.technical_skills_comments}}"></td>
+
+
+    </tr>
+
+     <tr>
+        <td>Work Consistency</td>
+        <td><input type="radio" name="work_consistency" value="Excellent"
+                   {% if the_document.work_consistency == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="work_consistency" value="Good" disabled
+        {% if the_document.work_consistency == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="work_consistency" value="Fair" disabled
+        {% if the_document.work_consistency == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="work_consistency" value="Poor" disabled
+        {% if the_document.work_consistency == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="work_consistency_comments" id="work_consistency_comments" readonly value="{{the_document.work_consistency_comments}}"></td>
+
+
+    </tr>
+
+    <tr>
+        <td>Enthusiasm</td>
+        <td><input type="radio" name="enthusiasm" value="Excellent"
+                   {% if the_document.enthusiasm == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="enthusiasm" value="Good" disabled
+        {% if the_document.enthusiasm == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="enthusiasm" value="Fair" disabled
+        {% if the_document.enthusiasm == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="enthusiasm" value="Poor" disabled
+        {% if the_document.enthusiasm == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="enthusiasm_comments" id="enthusiasm_comments" readonly value="{{the_document.enthusiasm_comments}}"></td>
+
+
+    </tr>
+
+    <tr>
+        <td>Cooperation</td>
+        <td><input type="radio" name="cooperation" value="Excellent"
+                   {% if the_document.cooperation == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="cooperation" value="Good" disabled
+        {% if the_document.cooperation == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="cooperation" value="Fair" disabled
+        {% if the_document.cooperation == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="cooperation" value="Poor" disabled
+        {% if the_document.cooperation == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="cooperation_comments" id="cooperation_comments" readonly value="{{the_document.cooperation_comments}}"></td>
+
+
+    </tr>
+
+    <tr>
+        <td>Attitude/ Behavior</td>
+        <td><input type="radio" name="attitude" value="Excellent"
+                   {% if the_document.attitude == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="attitude" value="Good" disabled
+        {% if the_document.attitude == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="attitude" value="Fair" disabled
+        {% if the_document.attitude == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="attitude" value="Poor" disabled
+        {% if the_document.attitude == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="attitude_comments" id="attitude_comments" readonly value="{{the_document.attitude_comments}}"></td>
+
+
+    </tr>
+
+    <tr>
+        <td>Initiative</td>
+        <td><input type="radio" name="initiative" value="Excellent"
+                   {% if the_document.initiative == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="initiative" value="Good" disabled
+        {% if the_document.initiative == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="initiative" value="Fair" disabled
+        {% if the_document.initiative == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="initiative" value="Poor" disabled
+        {% if the_document.initiative == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="initiative_comments" id="initiative_comments" readonly value="{{the_document.initiative_comments}}"></td>
+
+
+    </tr>
+
+    <tr>
+        <td>Work Relations</td>
+        <td><input type="radio" name="work_relations" value="Excellent"
+                   {% if the_document.work_relations == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="work_relations" value="Good" disabled
+        {% if the_document.work_relations == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="work_relations" value="Fair" disabled
+        {% if the_document.work_relations == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="work_relations" value="Poor" disabled
+        {% if the_document.work_relations == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="work_relations_comments" id="work_relations_comments" readonly value="{{the_document.work_relations_comments}}"></td>
+
+
+    </tr>
+
+    <tr>
+        <td>Creativity</td>
+        <td><input type="radio" name="creativity" value="Excellent"
+                   {% if the_document.creativity == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="creativity" value="Good" disabled
+        {% if the_document.creativity == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="creativity" value="Fair" disabled
+        {% if the_document.creativity == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="creativity" value="Poor" disabled
+        {% if the_document.creativity == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="creativity_comments" id="creativity_comments" readonly value="{{the_document.creativity_comments}}"></td>
+
+
+    </tr>
+
+    <tr>
+        <td>Punctuality</td>
+        <td><input type="radio" name="punctuality" value="Excellent"
+                   {% if the_document.punctuality == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="punctuality" value="Good" disabled
+        {% if the_document.punctuality == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="punctuality" value="Fair" disabled
+        {% if the_document.punctuality == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="punctuality" value="Poor" disabled
+        {% if the_document.punctuality == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="punctuality_comments" id="punctuality_comments" readonly value="{{the_document.punctuality_comments}}"></td>
+
+
+    </tr>
+
+    <tr>
+        <td>Attendance</td>
+        <td><input type="radio" name="attendance" value="Excellent"
+                   {% if the_document.attendance == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="attendance" value="Good" disabled
+        {% if the_document.attendance == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="attendance" value="Fair" disabled
+        {% if the_document.attendance == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="attendance" value="Poor" disabled
+        {% if the_document.attendance == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="attendance_comments" id="attendance_comments" readonly value="{{the_document.attendance_comments}}"></td>
+
+
+    </tr>
+
+    <tr>
+        <td>Dependability</td>
+        <td><input type="radio" name="dependability" value="Excellent"
+                   {% if the_document.dependability == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="dependability" value="Good" disabled
+        {% if the_document.dependability == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="dependability" value="Fair" disabled
+        {% if the_document.dependability == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="dependability" value="Poor" disabled
+        {% if the_document.dependability == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="dependability_comments" id="dependability_comments" readonly value="{{the_document.dependability_comments}}"></td>
+
+
+    </tr>
+
+    <tr>
+        <td>Communication Skills</td>
+        <td><input type="radio" name="communication_skills" value="Excellent"
+                   {% if the_document.communication_skills == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="communication_skills" value="Good" disabled
+        {% if the_document.communication_skills == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="communication_skills" value="Fair" disabled
+        {% if the_document.communication_skills == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="communication_skills" value="Poor" disabled
+        {% if the_document.communication_skills == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="communication_skills_comments" id="communication_skills_comments" readonly value="{{the_document.communication_skills_comments}}"></td>
+
+
+    </tr>
+
+     <tr>
+        <td>Overall Rating</td>
+        <td><input type="radio" name="overall_rating" value="Excellent"
+                   {% if the_document.overall_rating == 'Excellent' %} checked {% endif %}  disabled><br></td>
+        <td><input type="radio" name="overall_rating" value="Good" disabled
+        {% if the_document.overall_rating == 'Good' %} checked {% endif %} ><br></td>
+        <td><input type="radio" name="overall_rating" value="Fair" disabled
+        {% if the_document.overall_rating == 'Fair' %} checked {% endif %}></td>
+        <td><input type="radio" name="overall_rating" value="Poor" disabled
+        {% if the_document.overall_rating == 'Poor' %} checked {% endif %}></td>
+        <td><input type="text" name="overall_rating_comments" id="overall_rating_comments" readonly value="{{the_document.overall_rating_comments|string}}"></td>
+
+
+    </tr>
+        </tbody>
+</table>
+
+    <h1>Opportunities for Development</h1>
+    <textarea rows="4" cols="50" name="opportunities" id="opportunities" readonly>{{the_document.opportunities|string}}</textarea>
+
+
+    <h1>Reviewers Comments</h1>
+    <textarea rows="4" cols="50" name="reviewers_comments" id="reviewers_comments" readonly>{{the_document.reviewers_comments}}</textarea>
+    <br>
+
+
+
+
+
+
+<small>By signing this form, you confirm that you have discussed this review in detail with your supervisor.
+    Signing this form does not necessarily indicate that you agree with this performance evaluation.
+
+</small>
+
+
+
+<div class="signature_area">
+    <table cellspacing="3" cellpadding="3">
+        <tr>
+            <td>Employee Signature  :</td>
+            <td>Date</td>
+        </tr>
+
+         <tr>
+            <td>Reviewer Signature  :</td>
+            <td style="background:#faebd7;">
+             <img src="{{the_document.signaturepath.replace('/home/atul/PycharmProjects/AIGProbationSignature', '') }}" style="height:120px;" />
+            <td>Date</td>
+            <td>{{the_document.date1}}</td>
+
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
