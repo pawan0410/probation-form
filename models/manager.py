@@ -6,6 +6,7 @@ class Manager(db.Model):
     date = db.Column(db.Date)
     date1 = db.Column(db.Date)
 
+
     emp_name = db.Column(db.String(255))
     department = db.Column(db.String(255))
     period_of_review = db.Column(db.String(255))

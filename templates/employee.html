@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 
+    <script src="/static/signature.js"></script>
     <script src="/static/signature1.js"></script>
 
 
@@ -342,40 +343,26 @@
 </small>
 
 
-<form method="post" action="/employee" id="frm1">
-    <input type="hidden" id="location" name="location">
-            <input type="hidden" id="signature1" name="signature1">
+
 <div class="signature_area">
     <table cellspacing="3" cellpadding="3">
-
 
         <tr>
             <td>Employee Signature  :</td>
             <td style="background:#faebd7;">
-                <div id="canvas1">
-                    Canvas is not supported.
-                </div>
-                <script>
-				zkSignatureOne.capture();
-
-                </script>
-            </td>
-            <td>
-            <button name="button" type="button" onclick="zkSignatureOne.clear()">Clear</button>
-            </td>
+             <img src="{{the_empdocument.signaturepath1.replace(base_dir, '') }}" style="height:120px;" />
             <td>Date</td>
-            <td><input type="date" id="date2" name="date2"></td>
-
+            <td>{{the_empdocument.date2}}</td>
 
         </tr>
 
             <tr>
 
                 <td>Emp_name</td>
-            <td><input type="text" id="emp_name1" name="emp_name1"></td>
+            <td>{{the_empdocument.emp_code1}}</td>
 
                 <td>Reviewer's Email</td>
-            <td><input type="email" id="reviewer_email" name="reviewer_email"></td>
+            <td>{{the_empdocument.reviewer_email}}</td>
 
 
             </tr>
@@ -393,76 +380,8 @@
     </table>
 </div>
 
-<div class="footer_button">
-    <button type="submit" id="submit">Submit</button>
-</div>
-</form>
-
-<script>
-        function showPosition(position) {
-            //x.innerHTML = "Latitude: " + position.coords.latitude +
-            //"<br>Longitude: " + position.coords.longitude;
 
 
-             var xhttp = new XMLHttpRequest();
-             xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                 response = JSON.parse(this.responseText);
-                 document.getElementById('location').value = response.results[0].formatted_address;
-                }
-              };
-              xhttp.open("GET", 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+', '+position.coords.longitude+'+&sensor=true', true);
-              xhttp.send();
-
-
-         }
-
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-        function save(){
-            var canvas1 = document.getElementById("newSignature1");
-			var signature1 = canvas1.toDataURL("image/png");
-
-			var date2 = document.querySelector('[name=date2]').value;
-
-
-
-			var reviewer_email = document.querySelector('[name=reviewer_email]').value;
-
-
-
-			document.getElementById('signature1').value = signature1;
-
-			if ( zkSignatureOne.isEmpty()
-			 ){
-			        alert('Please sign all the fields');
-			       return false;
-			};
-
-			if ( (date2 == '') || (reviewer_email == '') ){
-			    alert('All fields are mandatory!!');
-			    return false;
-			}
-
-
-			return true;
-
-
-        }
-        function dosubmit(e){
-             if( confirm('By Submitting this form you agree that the information shared by you is correct and up-to-date ? ') ){
-                save();
-             }
-
-             return false;
-        }
-       document.getElementById('frm1').addEventListener('submit', dosubmit);
-    </script>
 
 </body>
 </html>

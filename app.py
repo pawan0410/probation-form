@@ -7,6 +7,7 @@ from flask import request
 from flask import redirect
 import datetime
 from models.manager import Manager
+from models.employee import Employee
 from flask_mail import Message
 from extensions import mail
 from ftp import upload_file
@@ -14,7 +15,7 @@ from ftp import upload_file
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@127.0.0.1/aig_jd_form'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@127.0.0.1/aig_probation_form'
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -162,8 +163,38 @@ def save_data():
 
     db.session.add(manager_form)
     db.session.commit()
+    return redirect('/document/{}/{}'.format(reviewer,emp_name))
 
-    print("emp %s" % emp_name)
+@app.route("/employee", methods=['POST'])
+def save_empdata():
+    emp_name1 = request.form.get('emp_name1')
+    reviewer_email = request.form.get('reviewer_email')
+    signature1 = save_signature(request.form.get('signature1'), request.form.get('emp_name1'), 'signature1')
+    date2 = request.form.get('date2')
+
+
+    emp_form = Employee(
+
+        emp_name1=emp_name1,
+
+        reviewer_email=reviewer_email,
+
+        date2=date2,
+
+
+        IP_addr=request.remote_addr,
+        Location=request.form.get('location'),
+        UserAgent=request.user_agent.browser,
+        OperatingSystem=request.user_agent.platform,
+        Time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        signaturepath1=signature1
+    )
+
+    db.session.add(emp_form)
+    db.session.commit()
+    return redirect('/employee/{}'.format(emp_name1))
+
+
 
     #signature = upload_file('signature', reviewer)
 
@@ -179,7 +210,7 @@ def save_data():
     #     authority_name=request.form.get('authority_name')
     # )
     #
-    return redirect('/thankyou')
+
 
 
 @app.route("/thankyou")
@@ -187,13 +218,22 @@ def thankyou():
     return render_template('thankyou.html')
 
 
-@app.route("/document/<string:reviewer>")
-def document(reviewer):
-    the_document = Manager.query.filter(Manager.reviewer == reviewer).order_by("id desc").first()
+@app.route("/document/<string:reviewer>/<string:emp_name>")
+def document(reviewer,emp_name):
+    the_document = Manager.query.filter(Manager.reviewer == reviewer,Manager.emp_name==emp_name).order_by("id desc").first()
 
     BASE_DIR = os.path.dirname(__file__)
 
     return render_template('document.html', the_document=the_document, base_dir=BASE_DIR)
+
+@app.route("/employee/<string:emp_name1>")
+def employee_doc(emp_name1):
+    the_empdocument = Employee.query.filter(Employee.emp_name1 == emp_name1).order_by("id desc").first()
+    the_document = Manager.query.filter(Manager.emp_name == emp_name1).order_by("id desc").first()
+
+    BASE_DIR = os.path.dirname(__file__)
+
+    return render_template('employee.html', the_empdocument=the_empdocument,the_document= the_document, base_dir=BASE_DIR)
 
 
 
