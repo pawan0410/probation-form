@@ -11,6 +11,7 @@ from models.employee import Employee
 from flask_mail import Message
 from extensions import mail
 from ftp import upload_file
+import utils
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -20,7 +21,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@127.0.0.1/aig_probati
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = r'kmt.aigbusiness@gmail.com'
-app.config['MAIL_PASSWORD'] = r'kmt@123456'
+app.config['MAIL_PASSWORD'] = r'atul123@#'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -40,21 +41,21 @@ def save_signature(base64_str, emp_name, frm_name):
         f.close()
     return file_name
 
-# def send_document(**kwargs):
-#     msg = Message('JD Form', sender='reset@aigbusiness.in', recipients=[
-#         'pkaur@aigbusiness.com'
-#     ])
-#     msg.html = render_template(
-#         'document.html',
-#         signature=kwargs['signature'],
-#         signature1=kwargs['signature1'],
-#
-#         date=kwargs['date'],
-#
-#         emp_name=kwargs['emp_name'],
-#         authority_name=kwargs['authority_name']
-#     )
-#     mail.send(msg)
+def send_document(**kwargs):
+    msg = Message('Probation Form', sender='reset@aigbusiness.in', recipients=[
+        'pkaur@aigbusiness.com'
+    ])
+    msg.html = render_template(
+        'employee.html',
+        signature=kwargs['signature'],
+        signature1=kwargs['signature1'],
+
+        date=kwargs['date'],
+
+        emp_name=kwargs['emp_name'],
+        authority_name=kwargs['authority_name']
+    )
+    mail.send(msg)
 
 
 @app.route("/")
@@ -64,6 +65,7 @@ def main():
 
 @app.route("/manager" , methods=['POST'])
 def save_data():
+    emp_code = request.form.get('emp_code')
     emp_name = request.form.get('emp_name')
     department = request.form.get('department')
     period_of_review = request.form.get('period_of_review')
@@ -109,7 +111,7 @@ def save_data():
     date1 = request.form.get('date1')
 
     manager_form = Manager(
-
+        emp_code=emp_code,
         emp_name=emp_name,
         department = department,
         period_of_review = period_of_review,
@@ -163,25 +165,61 @@ def save_data():
 
     db.session.add(manager_form)
     db.session.commit()
-    return redirect('/document/{}/{}'.format(reviewer,emp_name))
+    return redirect('/document/{}/{}'.format(reviewer,emp_code))
 
-@app.route("/employee", methods=['POST'])
-def save_empdata():
-    emp_name1 = request.form.get('emp_name1')
+
+@app.route("/thankyou")
+def thankyou():
+    return render_template('thankyou.html')
+
+
+@app.route("/document/<string:reviewer>/<string:emp_code>")
+def document(reviewer,emp_code):
+    the_document = Manager.query.filter(Manager.reviewer == reviewer,Manager.emp_code==emp_code).order_by("id desc").first()
+
+    BASE_DIR = os.path.dirname(__file__)
+
+    return render_template('document.html', the_document=the_document, base_dir=BASE_DIR)
+
+
+# @app.route("/employee", methods=['POST'])
+# def save_empdata():
+#     emp_code1 = request.form.get('emp_code1')
+#     reviewer_email = request.form.get('reviewer_email')
+#     signature1 = save_signature(request.form.get('signature1'), request.form.get('emp_code1'), 'signature1')
+#     date2 = request.form.get('date2')
+#
+#     emp_form = Employee(
+#         emp_code1=emp_code1,
+#         reviewer_email=reviewer_email,
+#         date2=date2,
+#         IP_addr=request.remote_addr,
+#         Location=request.form.get('location'),
+#         UserAgent=request.user_agent.browser,
+#         OperatingSystem=request.user_agent.platform,
+#         Time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+#         signaturepath1=signature1
+#     )
+#
+#     db.session.add(emp_form)
+#     db.session.commit()
+#     return redirect('/employee/{}'.format(emp_code1))
+
+
+@app.route("/employee/<string:emp_code>", methods=['POST'])
+def send_mail(emp_code):
+
+    BASE_DIR = os.path.dirname(__file__)
+
+    emp_code1 = request.form.get('emp_code1')
     reviewer_email = request.form.get('reviewer_email')
-    signature1 = save_signature(request.form.get('signature1'), request.form.get('emp_name1'), 'signature1')
+    signature1 = save_signature(request.form.get('signature1'), request.form.get('emp_code1'), 'signature1')
     date2 = request.form.get('date2')
 
-
     emp_form = Employee(
-
-        emp_name1=emp_name1,
-
+        emp_code1=emp_code1,
         reviewer_email=reviewer_email,
-
         date2=date2,
-
-
         IP_addr=request.remote_addr,
         Location=request.form.get('location'),
         UserAgent=request.user_agent.browser,
@@ -192,46 +230,59 @@ def save_empdata():
 
     db.session.add(emp_form)
     db.session.commit()
-    return redirect('/employee/{}'.format(emp_name1))
 
+    the_empdocument = Employee.query.filter(Employee.emp_code1 == emp_code).order_by("id desc").first()
+    the_document = Manager.query.filter(Manager.emp_code == emp_code).order_by("id desc").first()
 
+    file_name = utils.save_document_as_docx(
+        emp_name=the_document.emp_name,
+        emp_code=the_document.emp_code,
+        date=the_document.date,
+        department=the_document.department,
+        period_of_review=the_document.period_of_review,
+        reviewer=the_document.reviewer,
+        reviewers_title=the_document.reviewers_title,
+        job_Knowledge=the_document.job_Knowledge,
+        job_Knowledge_comments=the_document.job_Knowledge_comments,
+        productivity = the_document.productivity,
+        productivity_comments=the_document.productivity_comments,
+        work_quality=the_document.work_quality,
+        work_quality_comments=the_document.work_quality_comments,
+        technical_skills=the_document.technical_skills,
+        technical_skills_comments=the_document.technical_skills_comments,
+        work_consistency = the_document.work_consistency,
+        work_consistency_comments=the_document.work_consistency_comments,
+        enthusiasm=the_document.enthusiasm,
+        enthusiasm_comments=the_document.enthusiasm_comments,
+        cooperation=the_document.cooperation,
+        cooperation_comments=the_document.cooperation_comments,
+        attitude=the_document.attitude,
+        attitude_comments=the_document.attitude_comments,
+        initiative=the_document.initiative,
+        initiative_comments=the_document.initiative_comments,
+        work_relations=the_document.work_relations,
+        work_relations_comments=the_document.work_relations_comments,
+        creativity=the_document.creativity,
+        creativity_comments=the_document.creativity_comments,
+        punctuality=the_document.punctuality,
+        punctuality_comments=the_document.punctuality_comments,
+        attendance=the_document.attendance,
+        attendance_comments=the_document.attendance_comments,
+        dependability=the_document.dependability,
+        dependability_comments=the_document.dependability_comments,
+        communication_skills=the_document.communication_skills,
+        communication_skills_comments=the_document.communication_skills_comments,
+        overall_rating=the_document.overall_rating,
+        overall_rating_comments=the_document.overall_rating_comments,
+        opportunities=the_document.opportunities,
+        reviewers_comments=the_document.reviewers_comments,
+        signature1=the_empdocument.signaturepath1,
+        signature=the_document.signaturepath,
+        date2=the_empdocument.date2,
+        date1=the_document.date1
 
-    #signature = upload_file('signature', reviewer)
-
-
-    # send_document(
-    #     signature=signature,
-    #     signature1=signature1,
-    #
-    #     date=request.form.get('date'),
-    #
-    #     emp_name=request.form.get('emp_name'),
-    #     emp_code=request.form.get('emp_code'),
-    #     authority_name=request.form.get('authority_name')
-    # )
-    #
-
-
-
-@app.route("/thankyou")
-def thankyou():
-    return render_template('thankyou.html')
-
-
-@app.route("/document/<string:reviewer>/<string:emp_name>")
-def document(reviewer,emp_name):
-    the_document = Manager.query.filter(Manager.reviewer == reviewer,Manager.emp_name==emp_name).order_by("id desc").first()
-
-    BASE_DIR = os.path.dirname(__file__)
-
-    return render_template('document.html', the_document=the_document, base_dir=BASE_DIR)
-
-@app.route("/employee/<string:emp_name1>")
-def employee_doc(emp_name1):
-    the_empdocument = Employee.query.filter(Employee.emp_name1 == emp_name1).order_by("id desc").first()
-    the_document = Manager.query.filter(Manager.emp_name == emp_name1).order_by("id desc").first()
-
-    BASE_DIR = os.path.dirname(__file__)
+    )
+    utils.send_document_as_mail(emp_name=the_document.emp_name, file_name=file_name)
 
     return render_template('employee.html', the_empdocument=the_empdocument,the_document= the_document, base_dir=BASE_DIR)
 

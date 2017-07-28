@@ -8,6 +8,7 @@ class Manager(db.Model):
 
 
     emp_name = db.Column(db.String(255))
+    emp_code = db.Column(db.String(255))
     department = db.Column(db.String(255))
     period_of_review = db.Column(db.String(255))
     reviewer = db.Column(db.String(255))
@@ -48,7 +49,7 @@ class Manager(db.Model):
     overall_rating_comments = db.Column(db.String(255))
     signaturepath = db.Column(db.String(255))
 
-    date = db.Column(db.Date)
+
     IP_addr = db.Column(db.String(255))
     Location = db.Column(db.String(255))
     UserAgent = db.Column(db.String(255))

@@ -5,7 +5,7 @@ class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date2 = db.Column(db.Date)
 
-    emp_name1 = db.Column(db.String(255))
+    emp_code1 = db.Column(db.String(255))
     reviewer_email = db.Column(db.String(255))
 
     signaturepath1 = db.Column(db.String(255))

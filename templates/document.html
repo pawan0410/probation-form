@@ -50,6 +50,8 @@
         <tr>
            <td>Employee Name :</td>
             <td>{{the_document.emp_name}}</td>
+            <td>Employee Code :</td>
+            <td>{{the_document.emp_code}}</td>
             <td>Date : </td>
             <td>{{the_document.date}}</td>
         </tr>
@@ -342,7 +344,7 @@
 </small>
 
 
-<form method="post" action="/employee" id="frm1">
+<form method="post" action="/employee/{{emp_code}}" id="frm1">
     <input type="hidden" id="location" name="location">
             <input type="hidden" id="signature1" name="signature1">
 <div class="signature_area">
@@ -371,8 +373,8 @@
 
             <tr>
 
-                <td>Emp_name</td>
-            <td><input type="text" id="emp_name1" name="emp_name1"></td>
+                <td>Emp_code</td>
+            <td><input type="text" id="emp_code1" name="emp_code1"></td>
 
                 <td>Reviewer's Email</td>
             <td><input type="email" id="reviewer_email" name="reviewer_email"></td>
@@ -429,6 +431,7 @@
 			var signature1 = canvas1.toDataURL("image/png");
 
 			var date2 = document.querySelector('[name=date2]').value;
+			var emp_code1 = document.querySelector('[name=emp_code1]').value;
 
 
 
@@ -444,7 +447,7 @@
 			       return false;
 			};
 
-			if ( (date2 == '') || (reviewer_email == '') ){
+			if ( (date2 == '') || (reviewer_email == '') || (emp_code == '') ){
 			    alert('All fields are mandatory!!');
 			    return false;
 			}
